@@ -22,15 +22,11 @@ public class TwoDTree {
 
     private TreeNode head;
     private int size;
-    private Rectangle area;
     private final List<Point> points;
-    private final List<TreeNode> subTrees;
 
     public TwoDTree() {
         size = 0;
-        area = new Rectangle(0, 100, 0, 100);
         points = new ArrayList<>();
-        subTrees = new ArrayList<>();
     }
 
     public int size() {
@@ -42,9 +38,7 @@ public class TwoDTree {
 
     private TreeNode insertR(TreeNode h, Point p, int depth) {
         if (h == null) {
-            TreeNode res = new TreeNode(p);
-            subTrees.add(res);
-            return res;
+            return new TreeNode(p);
         }
 
         int cd = depth % 2;
