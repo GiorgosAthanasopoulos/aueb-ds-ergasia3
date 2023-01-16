@@ -1,26 +1,33 @@
 public class Point {
-    private final int x, y;
+    private final int[] coords;
 
     public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+        coords = new int[2];
+        coords[0] = x;
+        coords[1] = y;
     }
 
     public int x() {
-        return x;
+        return coords[0];
     }
+
     public int y() {
-        return y;
+        return coords[1];
+    }
+
+    public int[] coords() {
+        return coords;
     }
 
     public double distanceTo(Point z) {
-        return Math.sqrt(Math.pow(z.x - x, 2) + Math.pow(z.y - y, 2));
+        return Math.sqrt(Math.pow(z.x() - coords[0], 2) + Math.pow(z.y() - coords[1], 2));
     }
+
     public int squareDistanceTo(Point z) {
         return (int) Math.pow(distanceTo(z), 2);
     }
 
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return "(" + coords[0] + ", " + coords[1] + ")";
     }
 }

@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class TwoDTree {
@@ -22,16 +19,15 @@ public class TwoDTree {
 
     private TreeNode head;
     private int size;
-    private final List<Point> points;
 
     public TwoDTree() {
         size = 0;
-        points = new ArrayList<>();
     }
 
     public int size() {
         return size;
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
@@ -43,53 +39,48 @@ public class TwoDTree {
 
         int cd = depth % 2;
 
-        if (cd == 0)
-            if (p.x() < h.item.x())
-                h.l = insertR(h.l, p, depth+1);
-            else
-                h.r = insertR(h.r, p, depth+1);
-         else
-            if (p.y() < h.item.y())
-                h.l = insertR(h.l, p, depth+1);
-            else
-                h.r = insertR(h.r, p, depth+1);
+        if (p.coords()[cd] < h.item.coords()[cd]) {
+            h.l = insertR(h.l, p, depth + 1);
+        } else {
+            h.r = insertR(h.r, p, depth + 1);
+        }
 
-
-        return null;
+        return h;
     }
+
     public void insert(Point p) {
-        points.add(p);
         head = insertR(head, p, 0);
         size++;
     }
+
     private boolean searchR(TreeNode h, Point p, int depth) {
-        if (h == null)
+        if (h == null) {
             return false;
-        if (h.item.x() == p.x() && h.item.y() == p.y())
+        }
+        if (h.item.x() == p.x() && h.item.y() == p.y()) {
             return true;
+        }
 
         int cd = depth % 2;
 
-        if (cd == 1)
-            if (p.x() < h.item.x())
-                return searchR(h.l, p, depth+1);
-            else
-                return searchR(h.r, p, depth+1);
-        else
-            if (p.y() < h.item.y())
-                return searchR(h.l, p, depth+1);
-            else
-                return searchR(h.r, p, depth+1);
+        if (p.coords()[cd] < h.item.coords()[cd]) {
+            return searchR(h.l, p, depth + 1);
+        }
+
+        return searchR(h.r, p, depth + 1);
     }
+
     public boolean search(Point p) {
         return searchR(head, p, 0);
     }
 
     private TreeNode closest(TreeNode n0, TreeNode n1, Point target) {
-        if (n0 == null)
+        if (n0 == null) {
             return n1;
-        if (n1 == null)
+        }
+        if (n1 == null) {
             return n0;
+        }
 
         int d1 = n0.item.squareDistanceTo(target);
         int d2 = n1.item.squareDistanceTo(target);
@@ -100,62 +91,61 @@ public class TwoDTree {
             return n1;
         }
     }
+
     private TreeNode findNN(TreeNode root, Point target, int depth) {
-        if (root == null)
-            return null;
+        if (root == null) return null;
 
         int cd = depth % 2;
         TreeNode nextBranch, otherBranch;
 
-        if (cd == 0) {
-            if (target.x() < root.item.x()) {
-                nextBranch = root.l;
-                otherBranch = root.r;
-            } else {
-                nextBranch = root.r;
-                otherBranch = root.l;
-            }
+        if (target.coords()[cd] < root.item.coords()[cd])  {
+            nextBranch = root.l;
+            otherBranch = root.r;
         } else {
-            if (target.y() < root.item.y()) {
-                nextBranch = root.l;
-                otherBranch = root.r;
-            } else {
-                nextBranch = root.r;
-                otherBranch = root.l;
-            }
+            nextBranch = root.r;
+            otherBranch = root.l;
         }
 
-        TreeNode temp = findNN(nextBranch, target, depth+1);
+        TreeNode temp = findNN(nextBranch, target, depth + 1);
         TreeNode best = closest(temp, root, target);
 
         int radiusSquared = target.squareDistanceTo(best.item);
-        int dist;
-        if (cd == 0) {
-            dist = target.x() - root.item.x();
-        } else {
-            dist = target.y() - root.item.y();
-        }
+        int dist = target.coords()[cd] - root.item.coords()[cd];
 
-        if (radiusSquared >= dist*dist) {
-            temp = findNN(otherBranch, target, depth+1);
+        if (radiusSquared >= dist * dist) {
+            temp = findNN(otherBranch, target, depth + 1);
             best = closest(temp, best, target);
         }
 
         return best;
     }
+
     public TreeNode nearestNeighbour(Point p) {
-        if (isEmpty())
+        if (isEmpty()) {
             return null;
+        }
         return findNN(head, p, 0);
     }
+
+    private void rangeSearchHelper(TreeNode node, Rectangle range, List<Point> result) {
+        if (node == null) {
+            return;
+        }
+        if (range.contains(node.item)) {
+            result.add(node.item);
+        }
+        if (node.l != null) {
+            rangeSearchHelper(node.l, range, result);
+        }
+        if (node.r != null) {
+            rangeSearchHelper(node.r, range, result);
+        }
+    }
+
     public List<Point> rangeSearch(Rectangle rect) {
-        List<Point> res = new ArrayList<>();
-
-        for (Point point : points)
-            if (rect.contains(point))
-                res.add(point);
-
-        return res;
+        List<Point> result = new ArrayList<>();
+        rangeSearchHelper(head, rect, result);
+        return result;
     }
 
     private static class FileData {
@@ -207,8 +197,9 @@ public class TwoDTree {
                     System.exit(1);
                 }
 
-                if (lineInput.length == 1)
+                if (lineInput.length == 1) {
                     infoLineCounter++;
+                }
 
                 for (String s : lineInput) {
                     if (lineCounter < 2) {
@@ -218,8 +209,9 @@ public class TwoDTree {
                         }
                     } else {
                         // following if is to allow for comments in the input file
-                        if (lineInput[0].startsWith("!"))
+                        if (lineInput[0].startsWith("!")) {
                             break;
+                        }
                         if (!regex.matcher(s).find()) {
                             System.out.println("Input file format is invalid: point line: " + lineCounter + " contains invalid literal: " + s);
                             System.exit(1);
@@ -232,8 +224,9 @@ public class TwoDTree {
                         fileData.n = Integer.parseInt(lineInput[0]);
                     }
                     default -> {
-                        if (lineInput[0].startsWith("!"))
+                        if (lineInput[0].startsWith("!")) {
                             continue;
+                        }
                         if (infoLineCounter < 1) {
                             System.out.println("Input file format is invalid: info line 1 is missing!");
                             System.exit(1);
@@ -281,7 +274,7 @@ public class TwoDTree {
 
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("1.Compute the size of the tree\n2.Insert a new point\n3.Search if a given point exists in the tree\n4.Provide a query rectangle\n5.Provide a query point\n6.Clear the console\n7.Exit");
+            System.out.print("---|---|---|---|---|--------|---|---|---|---|---\n|                                              |\n| 1.Compute the size of the tree               |\n| 2.Insert a new point                         |\n| 3.Search if a given point exists in the tree |\n| 4.Provide a query rectangle                  |\n| 5.Provide a query point                      |\n| 6.Clear the console                          |\n| 7.Exit                                       |\n|                                              |\n---|---|---|---|---|--------|---|---|---|---|---\n>> ");
             int selection = sc.nextInt();
 
             switch (selection) {
@@ -296,19 +289,18 @@ public class TwoDTree {
                     int x = sc.nextInt();
                     System.out.print("Enter y1(for option 4: y1=ymin): ");
                     int y = sc.nextInt();
-                    if (selection == 2)
-                        twoDTree.insert(new Point(x, y));
-                    else if (selection == 3)
-                        System.out.println(twoDTree.search(new Point(x, y)));
-                    else if (selection == 4) {
+                    Point p = new Point(x, y);
+                    if (selection == 2) {
+                        twoDTree.insert(p);
+                    } else if (selection == 3) {
+                        System.out.println(twoDTree.search(p));
+                    } else if (selection == 4) {
                         System.out.print("Enter x2(max): ");
                         int x1 = sc.nextInt();
                         System.out.print("Enter y2(max): ");
                         int y1 = sc.nextInt();
                         System.out.println(Arrays.toString(twoDTree.rangeSearch(new Rectangle(x, x1, y, y1)).toArray()));
-                    }
-                    else {
-                        Point p = new Point(x, y);
+                    } else {
                         Point res = twoDTree.nearestNeighbour(p).item;
                         System.out.println(res);
                         System.out.println(res.distanceTo(p));
