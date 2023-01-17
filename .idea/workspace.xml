@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df16b641-fc88-4041-a3aa-eba24548e893" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/eclass/project3-report.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclass/src/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclass/src/Rectangle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eclass/src/TwoDTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/p3210265-p321008.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project3-report.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rectangle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TwoDTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TwoDTree.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,22 +30,25 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2KN5X2jigEru15sYsGM8WOFqG5W" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last.edited.regexp&quot;: &quot;1&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last.edited.regexp": "1",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TwoDTree" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="TwoDTree" />
@@ -64,7 +71,8 @@
       <workItem from="1673811161660" duration="39000" />
       <workItem from="1673811212711" duration="58000" />
       <workItem from="1673811280678" duration="11050000" />
-      <workItem from="1673822999017" duration="8978000" />
+      <workItem from="1673822999017" duration="9107000" />
+      <workItem from="1673962283622" duration="171000" />
     </task>
     <servers />
   </component>
@@ -81,5 +89,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

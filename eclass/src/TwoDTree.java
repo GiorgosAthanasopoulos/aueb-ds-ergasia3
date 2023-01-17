@@ -310,7 +310,6 @@ public class TwoDTree {
                     clearConsole();
                     break;
                 case 7:
-                    sc.close();
                     System.exit(0);
             }
         }
